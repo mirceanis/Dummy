@@ -6,6 +6,9 @@ jobs:
       - image: circleci/android:api-25-alpha
     environment:
       JVM_OPTS: -Xmx3200m
+      CIRCLE_VERSION_NAME_2: 1.4.${CIRCLE_BUILD_NUM}
+      CIRCLE_VERSION_NAME_3: $CIRCLE_VERSION_NAME
+      CIRCLE_VERSION_NAME_4: ${CIRCLE_VERSION_NAME}
     steps:
       - checkout
       - restore_cache:
