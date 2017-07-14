@@ -18,8 +18,7 @@ jobs:
           paths:
             - ~/.gradle
             - /.gradle
-          keys:
-            - deps-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+          key: deps-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Run Tests
           command: ./gradlew deliverArchives
