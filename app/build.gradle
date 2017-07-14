@@ -25,7 +25,7 @@ apply from: "signing.gradle"
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.example.mnistor.dummy"
         minSdkVersion 15
