@@ -1,20 +1,48 @@
 apply plugin: 'com.android.application'
 
+
+boolean releaseRequested = false
+gradle.startParameter.taskNames.each {
+    if (it.toLowerCase().contains(/release|deliver|build/)) {
+        releaseRequested = true
+    }
+}
+
+apply from: "version.gradle"
+apply from: "signing.gradle"
+
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.example.mnistor.dummy"
         minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 25
+
+        versionCode = getBuildVersionCode()
+        versionName = getBuildVersionName()
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            if (releaseRequested) {
+                storeFile getReleaseKeystore()
+                storePassword getReleaseKeystorePassword()
+                keyAlias getReleaseKeyAlias()
+                keyPassword getReleaseKeyPassword()
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (releaseRequested) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }
@@ -24,7 +52,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
