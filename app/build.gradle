@@ -1,9 +1,21 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://dl.bintray.com/kunickiaj/maven"
+        }
+    }
+}
+
+plugins {
+    id "io.errorlab.gradle.vault" version "0.1.0"
+}
+
 apply plugin: 'com.android.application'
 
 
 boolean releaseRequested = false
 gradle.startParameter.taskNames.each {
-    if (it.toLowerCase().contains(/release|deliver|build/)) {
+    if (it.toLowerCase().find(/.*(release|deliver|build).*/)) {
         releaseRequested = true
     }
 }
