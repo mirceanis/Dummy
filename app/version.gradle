@@ -93,7 +93,8 @@ task checkCleanRepo() {
 }
 
 static def getBuildVersionName() {
-    def circleVersion = System.env.CIRCLE_VERSION_NAME?: '0.0.42'
+    def cv = System.env.CIRCLE_VERSION_NAME?.replaceAll(/\$\{CIRCLE_BUILD_NUM\}/, "${System.env.CIRCLE_BUILD_NUM}")
+    def circleVersion = cv?: '0.0.42'
     return "$circleVersion"
 }
 
