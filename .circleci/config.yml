@@ -19,7 +19,7 @@ jobs:
             - ~/.gradle
             - /.gradle
           key: deps-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      -run:
+      - run:
           name: Run code checks
           command: ./gradlew lint test
       - store_artifacts:
