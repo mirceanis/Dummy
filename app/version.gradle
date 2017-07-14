@@ -83,7 +83,7 @@ task checkCleanRepo() {
             ignoreState = true;
         }
 
-        if (!ignoreState && !gitStatus.contains('nothing to commit, working directory clean')) {
+        if (!ignoreState && !gitStatus.contains('nothing to commit')) {
             throw new GradleException("There are some uncommited changes in your local git copy. "
                     + "Please clean your repo and try again!"
                     + "\n\nTo ignore this message, start gradle with -PIGNORE_REPOSITORY_STATE=true"
